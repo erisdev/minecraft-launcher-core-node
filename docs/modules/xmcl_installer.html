@@ -1,0 +1,489 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>@xmcl/installer | minecraft-launcher-core-node - v2.0.3</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.js" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">minecraft-launcher-core-node - v2.0.3</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../globals.html">Globals</a>
+				</li>
+				<li>
+					<a href="xmcl_installer.html">@xmcl/installer</a>
+				</li>
+			</ul>
+			<h1>Module @xmcl/installer</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>The installer module provides commonly used installation functions for Minecraft.</p>
+					</div>
+					<p>To install Minecraft, use module <a href="xmcl_installer.minecraft.html">minecraft</a> or <code>Installer</code></p>
+					<p>To install Forge, use module <a href="xmcl_installer.forge.html">forge</a> or <code>ForgeInstaller</code></p>
+					<p>To install Liteloader, use module <a href="xmcl_installer.liteloader.html">liteloader</a> or <code>LiteloaderInstaller</code></p>
+					<p>To install Fabric, use module <a href="xmcl_installer.fabric.html">fabric</a> or <code>FabricInstaller</code></p>
+					<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+						<h2>Usage</h2>
+					</a>
+					<a href="#install-minecraft" id="install-minecraft" style="color: inherit; text-decoration: none;">
+						<h3>Install Minecraft</h3>
+					</a>
+					<p>Fully install vanilla minecraft client including assets and libs.</p>
+					<pre><code class="language-ts">    <span class="hljs-keyword">import</span> { Installer } <span class="hljs-keyword">from</span> <span class="hljs-string">"@xmcl/installer"</span>;
+    <span class="hljs-keyword">import</span> { ResolvedVersion, MinecraftLocation } <span class="hljs-keyword">from</span> <span class="hljs-string">"@xmcl/core"</span>;
+
+    <span class="hljs-keyword">const</span> minecraft: MinecraftLocation;
+    <span class="hljs-keyword">const</span> list: Installer.VersionList = <span class="hljs-keyword">await</span> Installer.getVersionList();
+    <span class="hljs-keyword">const</span> aVersion: Installer.Version = list[<span class="hljs-number">0</span>]; <span class="hljs-comment">// i just pick the first version in list here</span>
+    <span class="hljs-keyword">await</span> Installer.install(<span class="hljs-string">"client"</span>, aVersion, minecraft);</code></pre>
+					<p>Treeshake friendly import:</p>
+					<pre><code class="language-ts">    <span class="hljs-keyword">import</span> { install, getVersionList, Version, VersionList } <span class="hljs-keyword">from</span> <span class="hljs-string">"@xmcl/installer/minecraft"</span>;
+    <span class="hljs-keyword">import</span> { ResolvedVersion, MinecraftLocation } <span class="hljs-keyword">from</span> <span class="hljs-string">"@xmcl/core"</span>;
+
+    <span class="hljs-keyword">const</span> minecraft: MinecraftLocation;
+    <span class="hljs-keyword">const</span> list: VersionList = <span class="hljs-keyword">await</span> getVersionList();
+    <span class="hljs-keyword">const</span> aVersion: Version = list[<span class="hljs-number">0</span>]; <span class="hljs-comment">// i just pick the first version in list here</span>
+    <span class="hljs-keyword">await</span> install(<span class="hljs-string">"client"</span>, aVersion, minecraft);</code></pre>
+					<p>Just install libraries:</p>
+					<pre><code class="language-ts">    <span class="hljs-keyword">import</span> { Installer } <span class="hljs-keyword">from</span> <span class="hljs-string">"@xmcl/installer"</span>;
+    <span class="hljs-keyword">import</span> { ResolvedVersion, MinecraftLocation, Version } <span class="hljs-keyword">from</span> <span class="hljs-string">"@xmcl/core"</span>;
+
+    <span class="hljs-keyword">const</span> minecraft: MinecraftLocation;
+    <span class="hljs-keyword">const</span> version: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// version string like 1.13</span>
+    <span class="hljs-keyword">const</span> resolvedVersion: ResolvedVersion = <span class="hljs-keyword">await</span> Version.parse(minecraft, version);
+    <span class="hljs-keyword">await</span> Installer.installLibraries(resolvedVersion);</code></pre>
+					<p>Just install assets:</p>
+					<pre><code class="language-ts">    <span class="hljs-keyword">import</span> { Installer } <span class="hljs-keyword">from</span> <span class="hljs-string">"@xmcl/installer"</span>;
+    <span class="hljs-keyword">import</span> { MinecraftLocation, ResolvedVersion, Version } <span class="hljs-keyword">from</span> <span class="hljs-string">"@xmcl/core"</span>;
+
+    <span class="hljs-keyword">const</span> minecraft: MinecraftLocation;
+    <span class="hljs-keyword">const</span> version: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// version string like 1.13</span>
+    <span class="hljs-keyword">const</span> resolvedVersion: ResolvedVersion = <span class="hljs-keyword">await</span> Version.parse(minecraft, version);
+    <span class="hljs-keyword">await</span> Installer.installAssets(resolvedVersion);</code></pre>
+					<p>Just ensure all assets and libraries are installed:</p>
+					<pre><code class="language-ts">    <span class="hljs-keyword">import</span> { Installer } <span class="hljs-keyword">from</span> <span class="hljs-string">"@xmcl/installer"</span>;
+    <span class="hljs-keyword">import</span> { MinecraftLocation, ResolvedVersion, Version } <span class="hljs-keyword">from</span> <span class="hljs-string">"@xmcl/core"</span>;
+
+    <span class="hljs-keyword">const</span> minecraft: MinecraftLocation;
+    <span class="hljs-keyword">const</span> version: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// version string like 1.13</span>
+    <span class="hljs-keyword">const</span> resolvedVersion: ResolvedVersion = <span class="hljs-keyword">await</span> Version.parse(minecraft, version);
+    <span class="hljs-keyword">await</span> Installer.installDependencies(resolvedVersion);</code></pre>
+					<p>Get the report of the version. It can check if version missing assets/libraries.</p>
+					<pre><code class="language-ts">    <span class="hljs-keyword">import</span> { MinecraftLocation } <span class="hljs-keyword">from</span> <span class="hljs-string">"@xmcl/core"</span>;
+    <span class="hljs-keyword">import</span> { Diagnosis } <span class="hljs-keyword">from</span> <span class="hljs-string">"@xmcl/installer"</span>;
+
+    <span class="hljs-keyword">const</span> minecraft: MinecraftLocation;
+    <span class="hljs-keyword">const</span> version: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// version string like 1.13</span>
+    <span class="hljs-keyword">const</span> resolvedVersion: ResolvedVersion = <span class="hljs-keyword">await</span> Version.parse(minecraft, version);
+
+    <span class="hljs-keyword">const</span> report: Diagnosis.MinecraftIssueReport = <span class="hljs-keyword">await</span> Diagnosis.diagnose(resolvedVersion.id, resolvedVersion.minecraftDirectory);
+
+    <span class="hljs-keyword">const</span> issues: Diagnosis.MinecraftIssues[] = report.issues;
+
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> issue of issues) {
+        <span class="hljs-keyword">switch</span> (issue.role) {
+            <span class="hljs-keyword">case</span> <span class="hljs-string">"minecraftJar"</span>: <span class="hljs-comment">// your jar has problem</span>
+            <span class="hljs-keyword">case</span> <span class="hljs-string">"versionJson"</span>: <span class="hljs-comment">// your json has problem</span>
+            <span class="hljs-keyword">case</span> <span class="hljs-string">"library"</span>: <span class="hljs-comment">// your lib might be missing or corrupted</span>
+            <span class="hljs-keyword">case</span> <span class="hljs-string">"assets"</span>: <span class="hljs-comment">// some assets are missing or corrupted</span>
+            <span class="hljs-comment">// and so on</span>
+        }
+    }</code></pre>
+					<a href="#progress-moniting-on-installation" id="progress-moniting-on-installation" style="color: inherit; text-decoration: none;">
+						<h3>Progress Moniting on Installation</h3>
+					</a>
+					<p>Most install function has a corresponding task function. For example, <code>install</code> function has the function name <code>installTask</code> which is the task version monitor the progress of install.</p>
+					<p>Here is the example of just moniting the install task overall progress: </p>
+					<pre><code class="language-ts"><span class="hljs-keyword">let</span> task: Task&lt;ResolvedVersion&gt; = installTask(<span class="hljs-string">'client'</span>, versionMetadata, mcLocation);
+<span class="hljs-keyword">let</span> taskHandle: TaskHandle&lt;ResolvedVersion&gt; = task.execute();
+
+<span class="hljs-keyword">let</span> rootTask: Task.State;
+taskHandle.on(<span class="hljs-string">'execute'</span>, <span class="hljs-function">(<span class="hljs-params">task, parentTask</span>) =&gt;</span> {
+    <span class="hljs-keyword">if</span> (parentTask) {
+        <span class="hljs-comment">// remember which is the root tas</span>
+        rootTask = task;
+    } <span class="hljs-keyword">else</span> {
+        <span class="hljs-comment">// other child task executed</span>
+    }
+});
+taskHandle.on(<span class="hljs-string">'update'</span>, <span class="hljs-function">(<span class="hljs-params">{ progress, total, message }, taskState</span>) =&gt;</span> {
+    <span class="hljs-keyword">if</span> (rootTask === taskState) {
+        <span class="hljs-comment">// root task update</span>
+        <span class="hljs-comment">// you should update your ui progress</span>
+    } <span class="hljs-keyword">else</span> {
+        <span class="hljs-comment">// other task update</span>
+    }
+});
+
+<span class="hljs-comment">// wait task finish</span>
+<span class="hljs-keyword">await</span> taskHandle.wait();
+</code></pre>
+					<p>The task is designed to organize the all the works in a tree like structure.</p>
+					<p>The <code>installTask</code> has such parent/child structure</p>
+					<ul>
+						<li>install<ul>
+								<li>installVersion<ul>
+										<li>json</li>
+										<li>jar</li>
+									</ul>
+								</li>
+								<li>installDependencies<ul>
+										<li>installAssets<ul>
+												<li>assetsJson</li>
+												<li>asset</li>
+											</ul>
+										</li>
+										<li>installLibraries<ul>
+												<li>library</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+					</ul>
+					<p>To generally display this tree in UI. You can identify the task by its <code>path</code>.</p>
+					<pre><code class="language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">updateTaskUI</span>(<span class="hljs-params">task: Task.State, progress: <span class="hljs-built_in">number</span>, total?: <span class="hljs-built_in">number</span></span>) </span>{
+    <span class="hljs-comment">// you can use task.path as identifier</span>
+    <span class="hljs-comment">// and update the task on UI</span>
+}
+
+<span class="hljs-comment">// taskHandle is the installTask handle</span>
+taskHandle.on(<span class="hljs-string">'update'</span>, <span class="hljs-function">(<span class="hljs-params">{ progress, total, message }, taskState</span>) =&gt;</span> {
+    <span class="hljs-keyword">let</span> path = taskState.path;
+    <span class="hljs-comment">// the path is concated from each tasks' name</span>
+    <span class="hljs-comment">// it can be "install", "install.installVersion", "install.installVersion.jar"</span>
+    <span class="hljs-comment">// "install.installDependencies.installAssets.assetsJson" or so on...</span>
+    updateTaskUI(taskState, progress, total);
+});</code></pre>
+					<p>If you think that&#39;s not good enough, you can assign the id to the task state by yourself.</p>
+					<p>In this simple case, you will enconter type error in typescript!</p>
+					<pre><code class="language-ts">taskHandle.on(<span class="hljs-string">'execute'</span>, <span class="hljs-function">(<span class="hljs-params">task, parentTask</span>) =&gt;</span> {
+    task.id = <span class="hljs-string">'your-generated-id'</span>; <span class="hljs-comment">// type error</span>
+});
+taskHandle.on(<span class="hljs-string">'update'</span>, <span class="hljs-function">(<span class="hljs-params">{ progress, total, message }, taskState</span>) =&gt;</span> {
+    updateTaskUI(taskState, progress, total);
+});
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">updateTaskUI</span>(<span class="hljs-params">task: Task.State, progress: <span class="hljs-built_in">number</span>, total?: <span class="hljs-built_in">number</span></span>) </span>{
+    <span class="hljs-comment">// update the task by task.id</span>
+}</code></pre>
+					<p>You can override the type by yourself, or you can use task state factory:</p>
+					<pre><code class="language-ts"><span class="hljs-keyword">interface</span> TaskState <span class="hljs-keyword">extends</span> Task.State {
+    id: <span class="hljs-built_in">string</span>;
+}
+<span class="hljs-keyword">const</span> factory: Task.StateFactory&lt;TaskState&gt; = <span class="hljs-function"><span class="hljs-params">n</span> =&gt;</span> ({
+    ...n,
+    id: generateIdByYourselft(),
+});
+
+<span class="hljs-keyword">const</span> runtime: TaskRuntime&lt;TaskState&gt; = Task.createRuntime(factory);
+<span class="hljs-keyword">const</span> task: Task&lt;ResolvedVersion&gt; = installTask(<span class="hljs-string">'client'</span>, versionMetadata, mcLocation);
+
+runtime.submit(task); <span class="hljs-comment">// use runtime submit!</span>
+
+<span class="hljs-comment">// listen the task event from runtime!</span>
+runtime.on(<span class="hljs-string">'update'</span>, <span class="hljs-function">(<span class="hljs-params">{progress, total}, state</span>) =&gt;</span> {
+    task.id; <span class="hljs-comment">// this will not have type error!</span>
+});</code></pre>
+					<a href="#install-libraryassets-with-customized-host" id="install-libraryassets-with-customized-host" style="color: inherit; text-decoration: none;">
+						<h3>Install Library/Assets with Customized Host</h3>
+					</a>
+					<p>To swap the library to your self-host or other customized host, you can assign the <code>libraryHost</code> field in options.</p>
+					<p>For example, if you want to download the library <code>commons-io:commons-io:2.5</code> from your self hosted server, you can have</p>
+					<pre><code class="language-ts">    <span class="hljs-comment">// the example for call `installLibraries`</span>
+    <span class="hljs-comment">// this option will also work for other functions involving libraries like `install`, `installDependencies`.</span>
+    <span class="hljs-keyword">await</span> Installer.installLibraries(resolvedVersion, {
+        libraryHost(library: ResolvedLibrary) {
+            <span class="hljs-keyword">if</span> (library.name === <span class="hljs-string">"commons-io:commons-io:2.5"</span>) {
+                <span class="hljs-comment">// the downloader will first try the first url in the array</span>
+                <span class="hljs-comment">// if this failed, it will try the 2nd.</span>
+                <span class="hljs-comment">// if it's still failed, it will try original url</span>
+                <span class="hljs-keyword">return</span> [<span class="hljs-string">"https://your-host.org/the/path/to/the/jar"</span>, <span class="hljs-string">"your-sencodary-url"</span>];
+                <span class="hljs-comment">// if you just have one url</span>
+                <span class="hljs-comment">// just return a string here...</span>
+            }
+            <span class="hljs-comment">// return undefined if you don't want to change lib url</span>
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">undefined</span>;
+        },
+        mavenHost: [<span class="hljs-string">'https://www.your-other-maven.org'</span>], <span class="hljs-comment">// you still can use this to add other maven</span>
+    });
+
+    <span class="hljs-comment">// it will first try you libraryHost url and then try mavenHost url.</span></code></pre>
+					<p>To swap the assets host, you can just assign the assets host url to the options</p>
+					<pre><code class="language-ts">    <span class="hljs-keyword">await</span> Installer.installAssets(resolvedVersion, {
+        assetsHost: <span class="hljs-string">"https://www.your-url/assets"</span>
+    });</code></pre>
+					<p>The assets host should accept the get asset request like <code>GET https://www.your-url/assets/&lt;hash-head&gt;/&lt;hash&gt;</code>, where <code>hash-head</code> is the first two char in <code>&lt;hash&gt;</code>. The <code>&lt;hash&gt;</code> is the sha1 of the asset. </p>
+					<a href="#install-forge" id="install-forge" style="color: inherit; text-decoration: none;">
+						<h3>Install Forge</h3>
+					</a>
+					<p>Get the forge version info and install forge from it. </p>
+					<pre><code class="language-ts">    <span class="hljs-keyword">import</span> { ForgeInstaller } <span class="hljs-keyword">from</span> <span class="hljs-string">"@xmcl/installer"</span>;
+    <span class="hljs-keyword">import</span> { MinecraftLocation } <span class="hljs-keyword">from</span> <span class="hljs-string">"@xmcl/core"</span>;
+
+    <span class="hljs-keyword">const</span> list: ForgeInstaller.VersionList = <span class="hljs-keyword">await</span> ForgeInstaller.getVersionList();
+    <span class="hljs-keyword">const</span> minecraftLocation: MinecraftLocation;
+    <span class="hljs-keyword">const</span> mcversion = page.mcversion; <span class="hljs-comment">// mc version</span>
+    <span class="hljs-keyword">const</span> firstVersionOnPage: ForgeInstaller.Version = page.versions[<span class="hljs-number">0</span>];
+    <span class="hljs-keyword">await</span> ForgeInstaller.install(firstVersionOnPage, minecraftLocation);</code></pre>
+					<p>If you know forge version and minecraft version. You can directly do such:</p>
+					<pre><code class="language-ts">    <span class="hljs-keyword">import</span> { ForgeInstaller } <span class="hljs-keyword">from</span> <span class="hljs-string">"@xmcl/installer"</span>;
+
+    <span class="hljs-keyword">const</span> forgeVersion = <span class="hljs-string">'a-forge-version'</span>; <span class="hljs-comment">// like 31.1.27</span>
+    <span class="hljs-keyword">await</span> ForgeInstaller.install({ version: forgeVersion, mcversion: <span class="hljs-string">'1.15.2'</span> }, minecraftLocation);</code></pre>
+					<p>Notice that this installation doesn&#39;t ensure full libraries installation.
+					Please run <code>Installer.installDependencies</code> afther that.</p>
+					<p>The new 1.13 forge installation process requires java to run.
+						Either you have <code>java</code> executable in your environment variable PATH,
+					or you can assign java location by <code>ForgeInstaller.install(forgeVersionMeta, minecraftLocation, { java: yourJavaExecutablePath });</code>.</p>
+					<p>If you use this auto installation process to install forge, please checkout <a href="https://www.patreon.com/LexManos">Lex&#39;s Patreon</a>.
+					Consider support him to maintains forge.</p>
+					<a href="#install-fabric" id="install-fabric" style="color: inherit; text-decoration: none;">
+						<h3>Install Fabric</h3>
+					</a>
+					<p>Fetch the new fabric version list.</p>
+					<pre><code class="language-ts">    <span class="hljs-keyword">import</span> { FabricInstaller } <span class="hljs-keyword">from</span> <span class="hljs-string">"@xmcl/installer"</span>;
+
+    <span class="hljs-keyword">const</span> versionList: Fabric.VersionList = <span class="hljs-keyword">await</span> FabricInstaller.updateVersionList();
+    <span class="hljs-keyword">const</span> latestYarnVersion = versionList.yarnVersions[<span class="hljs-number">0</span>]; <span class="hljs-comment">// yarn version is combined by mcversion+yarn build number</span>
+    <span class="hljs-keyword">const</span> latestLoaderVersion = versionList.loaderVersions[<span class="hljs-number">0</span>];</code></pre>
+					<p>Install fabric to the client. This installation process doesn&#39;t ensure the minecraft libraries.</p>
+					<pre><code class="language-ts">    <span class="hljs-keyword">import</span> { FabricInstaller } <span class="hljs-keyword">from</span> <span class="hljs-string">"@xmcl/fabric"</span>;
+
+    <span class="hljs-keyword">const</span> minecraftLocation: MinecraftLocation;
+    <span class="hljs-keyword">const</span> yarnVersion: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// e.g. "1.14.1+build.10"</span>
+    <span class="hljs-keyword">const</span> loaderVersion: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// e.g. "0.4.7+build.147"</span>
+    <span class="hljs-keyword">const</span> installPromise: <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; = FabricInstaller.install(yarnVersion, loaderVersion, minecraftLocation)</code></pre>
+					<p>Please run <code>Installer.installDependencies</code> after that to install fully.</p>
+				</div>
+			</section>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>References</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="xmcl_installer.html#defaultdownloader" class="tsd-kind-icon">Default<wbr>Downloader</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="xmcl_installer.html#downloadoption" class="tsd-kind-icon">Download<wbr>Option</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="xmcl_installer.html#downloader" class="tsd-kind-icon">Downloader</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="xmcl_installer.html#downloaderoptions" class="tsd-kind-icon">Downloader<wbr>Options</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="xmcl_installer.html#httpdownloader" class="tsd-kind-icon">Http<wbr>Downloader</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="xmcl_installer.html#installoptions" class="tsd-kind-icon">Install<wbr>Options</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="xmcl_installer.html#multipleerror" class="tsd-kind-icon">Multiple<wbr>Error</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="xmcl_installer.html#downloadfiletask" class="tsd-kind-icon">download<wbr>File<wbr>Task</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Modules</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-module tsd-parent-kind-module"><a href="xmcl_installer.curseforge.html" class="tsd-kind-icon">curseforge</a></li>
+								<li class="tsd-kind-module tsd-parent-kind-module"><a href="xmcl_installer.diagnose.html" class="tsd-kind-icon">diagnose</a></li>
+								<li class="tsd-kind-module tsd-parent-kind-module"><a href="xmcl_installer.fabric.html" class="tsd-kind-icon">fabric</a></li>
+								<li class="tsd-kind-module tsd-parent-kind-module"><a href="xmcl_installer.forge.html" class="tsd-kind-icon">forge</a></li>
+								<li class="tsd-kind-module tsd-parent-kind-module"><a href="xmcl_installer.java.html" class="tsd-kind-icon">java</a></li>
+								<li class="tsd-kind-module tsd-parent-kind-module"><a href="xmcl_installer.liteloader.html" class="tsd-kind-icon">liteloader</a></li>
+								<li class="tsd-kind-module tsd-parent-kind-module"><a href="xmcl_installer.minecraft.html" class="tsd-kind-icon">minecraft</a></li>
+								<li class="tsd-kind-module tsd-parent-kind-module"><a href="xmcl_installer.optifine.html" class="tsd-kind-icon">optifine</a></li>
+								<li class="tsd-kind-module tsd-parent-kind-module"><a href="xmcl_installer.util.html" class="tsd-kind-icon">util</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>References</h2>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="defaultdownloader" class="tsd-anchor"></a>
+					<h3>Default<wbr>Downloader</h3>
+					Renames and re-exports <a href="../classes/xmcl_installer.util.httpdownloader.html">HttpDownloader</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="downloadoption" class="tsd-anchor"></a>
+					<h3>Download<wbr>Option</h3>
+					Re-exports <a href="../interfaces/xmcl_installer.util.downloadoption.html">DownloadOption</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="downloader" class="tsd-anchor"></a>
+					<h3>Downloader</h3>
+					Re-exports <a href="../interfaces/xmcl_installer.util.downloader.html">Downloader</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="downloaderoptions" class="tsd-anchor"></a>
+					<h3>Downloader<wbr>Options</h3>
+					Re-exports <a href="../interfaces/xmcl_installer.util.downloaderoptions.html">DownloaderOptions</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="httpdownloader" class="tsd-anchor"></a>
+					<h3>Http<wbr>Downloader</h3>
+					Re-exports <a href="../classes/xmcl_installer.util.httpdownloader.html">HttpDownloader</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="installoptions" class="tsd-anchor"></a>
+					<h3>Install<wbr>Options</h3>
+					Re-exports <a href="../interfaces/xmcl_installer.util.installoptions.html">InstallOptions</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="multipleerror" class="tsd-anchor"></a>
+					<h3>Multiple<wbr>Error</h3>
+					Re-exports <a href="../classes/xmcl_installer.util.multipleerror.html">MultipleError</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
+					<a name="downloadfiletask" class="tsd-anchor"></a>
+					<h3>download<wbr>File<wbr>Task</h3>
+					Re-exports <a href="xmcl_installer.util.html#downloadfiletask">downloadFileTask</a>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="../globals.html"><em>Globals</em></a>
+					</li>
+					<li class="current tsd-kind-module tsd-is-not-exported">
+						<a href="xmcl_installer.html">@xmcl/installer</a>
+						<ul>
+							<li class=" tsd-kind-module tsd-parent-kind-module">
+								<a href="xmcl_installer.curseforge.html">curseforge</a>
+							</li>
+							<li class=" tsd-kind-module tsd-parent-kind-module">
+								<a href="xmcl_installer.diagnose.html">diagnose</a>
+							</li>
+							<li class=" tsd-kind-module tsd-parent-kind-module">
+								<a href="xmcl_installer.fabric.html">fabric</a>
+							</li>
+							<li class=" tsd-kind-module tsd-parent-kind-module">
+								<a href="xmcl_installer.forge.html">forge</a>
+							</li>
+							<li class=" tsd-kind-module tsd-parent-kind-module">
+								<a href="xmcl_installer.java.html">java</a>
+							</li>
+							<li class=" tsd-kind-module tsd-parent-kind-module">
+								<a href="xmcl_installer.liteloader.html">liteloader</a>
+							</li>
+							<li class=" tsd-kind-module tsd-parent-kind-module">
+								<a href="xmcl_installer.minecraft.html">minecraft</a>
+							</li>
+							<li class=" tsd-kind-module tsd-parent-kind-module">
+								<a href="xmcl_installer.optifine.html">optifine</a>
+							</li>
+							<li class=" tsd-kind-module tsd-parent-kind-module">
+								<a href="xmcl_installer.util.html">util</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="xmcl_installer.html#defaultdownloader" class="tsd-kind-icon">Default<wbr>Downloader</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="xmcl_installer.html#downloadoption" class="tsd-kind-icon">Download<wbr>Option</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="xmcl_installer.html#downloader" class="tsd-kind-icon">Downloader</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="xmcl_installer.html#downloaderoptions" class="tsd-kind-icon">Downloader<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="xmcl_installer.html#httpdownloader" class="tsd-kind-icon">Http<wbr>Downloader</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="xmcl_installer.html#installoptions" class="tsd-kind-icon">Install<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="xmcl_installer.html#multipleerror" class="tsd-kind-icon">Multiple<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-reference tsd-parent-kind-module">
+						<a href="xmcl_installer.html#downloadfiletask" class="tsd-kind-icon">download<wbr>File<wbr>Task</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer>
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-namespace"><span class="tsd-kind-icon">Namespace</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="../assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>
